@@ -177,9 +177,10 @@ def mybook(request, num):
     return redirect(book_list)
 
 def detail(request, title):
-    image = dao.selectBookbytitle(title)
-    data = parseContent(image['url'], title)
-    data['image'] = image['image']
+    book = dao.selectBookbytitle(title)
+    data = parseContent(book['url'], title)
+    data['image'] = book['image']
+    data['id'] = book['id']
     ganglist = gangnam(title)
     return render(request, 'book/detail.html', {'data':data, 'ganglist':ganglist})
 
