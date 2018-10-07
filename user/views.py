@@ -23,3 +23,8 @@ def mypage(request):
     for i in b_id:
         bList.append(selectBookbyid(i))
     return render(request, 'user/mypage.html', {'bList':bList, 'cnt':cnt})
+
+def cancer(request, num):
+    dao.deletBlike(num, request.user.id)
+    return redirect(mypage)
+    

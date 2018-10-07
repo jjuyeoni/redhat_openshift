@@ -11,6 +11,7 @@ import numpy as np
 import re
 import html5lib
 from django.http import HttpResponse
+import urllib.parse
 
 # bestseller crawling
 def bestSeller():
@@ -148,6 +149,34 @@ def parseContent(url, title):
     bdata['title'] = title
     return bdata
 
+
+def gangnam(title):
+
+    url1 = "http://library.gangnam.go.kr/search/tot/result?q="
+    url2 = urllib.parse.quote_plus(title)
+    url3 = "&st=EXCT&si=TOTAL&oi=&os=&cpp=50"
+
+    pageurl = url1+url2+url3
+    Url = urlopen(pageurl)
+    soup1 = bs(Url, "html.parser")
+
+    g_library = soup1.select("dd.bookline.locCursor > span")
+
+    liblist_list =[]
+    liblist = {
+        'libname':'',
+        'libstatus':'',
+    }
+    for library in g_library:
+        libname = library.contents[0]
+        libstatus = library.contents[1].text
+        liblist = {
+            'libname' : libname,
+            'libstatus' : libstatus
+            }
+        liblist_list.append(liblist)
+    return liblist_list
+
 # Create your views here.
 def book_list(request):
     df = bestSeller()
@@ -194,31 +223,3 @@ def bAjax(request):
         return detail(request, data)
     return render(request, 'book/book_search.html', {'time':time})
 
-import urllib.parse
-
-def gangnam(title):
-
-    url1 = "http://library.gangnam.go.kr/search/tot/result?q="
-    url2 = urllib.parse.quote_plus(title)
-    url3 = "&st=EXCT&si=TOTAL&oi=&os=&cpp=50"
-
-    pageurl = url1+url2+url3
-    Url = urlopen(pageurl)
-    soup1 = bs(Url, "html.parser")
-
-    g_library = soup1.select("dd.bookline.locCursor > span")
-
-    liblist_list =[]
-    liblist = {
-        'libname':'',
-        'libstatus':'',
-    }
-    for library in g_library:
-        libname = library.contents[0]
-        libstatus = library.contents[1].text
-        liblist = {
-            'libname' : libname,
-            'libstatus' : libstatus
-            }
-        liblist_list.append(liblist)
-    return liblist_list

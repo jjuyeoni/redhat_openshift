@@ -30,7 +30,6 @@
 
     <section id="tab"> <!-- section tab-->
       <div class="container">
-        <a href="/user/logout">로그아웃</a>
         <div class="row mx-auto text-center" style="margin-bottom: 30px;">
             <!--tab부분-->
             <div class="button-2 button-d col-lg-4 col-sm-4">
@@ -61,53 +60,46 @@
                 <div class="container">
                     <div class="row">
                       {% for book in bList %}
-                      <div class="col-lg-3 col-sm-4"onclick="location.href='{{book.url}}';">
+                      <div class="col-lg-3 col-sm-4">
                         <figure class="snip1132">
-                          <img class="img-fluid" src="{{book.image}}" >
+                          <a href='{{book.url}}'><img class="img-fluid" src="{{book.image}}"></a>
                           <figcaption>
                             <div class="heading">
-                              <h3>♥</h3>
-                            </div>
-                            <div class="caption">
-                              <p>.</p>
+                              <h3>{{book.id}}</h3>
                             </div>
                           </figcaption>
                         </figure>
+                        <a href="/user/cancer/{{book.id}}">취소</a>
                       </div>
+                      
                       {% endfor %}
-
                     </div><!--row-->
+<!--
                     <div class="btn_more col-sm-12" style="margin-top:70px;">
                       <button>more</button>
                     </div>
+-->
                   </div><!--container-->
                 </div> <!--div Like End-->
 
               <!--Profile버튼 클릭시 보이는 부분-->
               <div id="Profile" class="Tab" style="text-align:left;padding-left:none;display:none;">  <!--div Profile-->
                 <div style="border-bottom:1px solid; border-color:#dddddd;margin-bottom:30px;margin-top:30px;padding-bottom:10px;">
-                <div class="p_image">
+                <a href="/user/logout">로그아웃</a>
+                 <div class="p_image">
                   <img src="{% static 'img/library2.jpg' %}" height="100%" width="100%" style="opacity:0.7;">
                   <div class="text">
                     <font size="6">My page</font><br>
-                    <font size="4">안녕하세요, {{user.id}}님</font><!--사용자 이름-->
+                    <font size="4">안녕하세요, {{user}}님</font><!--사용자 이름-->
                   </div>
                 </div>
-
               </div>
 
-              <div style="border-bottom:1px solid; border-color:#dddddd;margin-bottom:30px;margin-top:30px;padding-bottom:20px;">
-                <div style="border-bottom:1px solid; border-color:#dddddd;margin-bottom:30px;margin-top:30px;padding-bottom:20px;">
-                  <!--뭐 넣을지 아직 미정-->
-                  <h2>ssssd</h2>
-                  <p>Paris is the capital of France.</p>
-                </div>
-                <div class="p_image">
-                  <img src="{% static 'img/books.jpg' %}" height="100%" width="100%" style="opacity:0.8;">
-                  <div class="text2">
-                    <p>The Reading of all good books is like conversation with the finest men of past centuries. </p>
-                    <p>-Descartes, René</p>
-                  </div>
+              <div style="margin-bottom:30px;margin-top:30px;padding-bottom:20px;">
+                <div style="margin-bottom:30px;margin-top:30px;padding-bottom:20px;">
+                  
+                  <h2>{{user}}님의 책 취향</h2>
+                  
                 </div>
               </div>
             </div><!--div Profile End-->
