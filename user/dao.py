@@ -24,3 +24,13 @@ def deletBlike(b_id, u_id):
     query_string = "delete from book_blike where u_id = \'" + str(u_id) + "\' and b_id= \'" + str(b_id) + "\';"
     cursor.execute(query_string)
     return 0
+
+def selectAllBlike(u_id):
+    cursor = connection.cursor()
+    query_string = "SELECT * FROM book_blike where u_id = \'" + str(u_id) + "\';"
+    cursor.execute(query_string)
+    rows = cursor.fetchall()
+    book=[]
+    for row in rows :
+        book.append(row[0])
+    return book
