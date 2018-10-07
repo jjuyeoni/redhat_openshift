@@ -221,7 +221,8 @@ def detail(request, title):
     data['image'] = book['image']
     data['id'] = book['id']
     ganglist = gangnam(title)
-    return render(request, 'book/detail.html', {'data':data, 'ganglist':ganglist})
+    check = dao.checkBlike(book['id'], request.user.id)
+    return render(request, 'book/detail.html', {'data':data, 'ganglist':ganglist, 'check':check})
 
 #책검색
 def b_search(request):

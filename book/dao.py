@@ -45,3 +45,12 @@ def selectSearchBook(title):
     for row in rows :
         book.append(row[0])
     return book
+
+def checkBlike(b_id, u_id):
+    cursor = connection.cursor()
+    query_string = "select count(*) from book_blike where u_id = \'" + str(u_id) + "\' and b_id= \'" + str(b_id) + "\';"
+    cursor.execute(query_string)
+    rows = cursor.fetchall()
+    for row in rows :
+        check = row[0]
+    return check
