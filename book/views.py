@@ -167,14 +167,24 @@ def gangnam(title):
         'libname':'',
         'libstatus':'',
     }
-    for library in g_library:
-        libname = library.contents[0]
-        libstatus = library.contents[1].text
-        liblist = {
-            'libname' : libname,
-            'libstatus' : libstatus
-            }
-        liblist_list.append(liblist)
+    if (g_library==[]):
+
+         liblist = {
+             'libname' : '소장 도서관이 없습니다',
+             'libstatus' : ' '
+             }
+         liblist_list.append(liblist)
+
+
+    else :
+            for library in g_library:
+                        libname = library.contents[0]
+                        libstatus = library.contents[1].text
+                        liblist = {
+                                'libname' : libname,
+                                'libstatus' : libstatus
+                                }
+                        liblist_list.append(liblist)
     return liblist_list
 
 # Create your views here.
@@ -203,7 +213,7 @@ def search(request):
 def mybook(request, num):
     b = Blike(u = request.user, b_id = num)
     b.save()
-    return redirect(book_list)
+    return redirect(b_search)
 
 def detail(request, title):
     book = dao.selectBookbytitle(title)
