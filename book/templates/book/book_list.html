@@ -1,0 +1,52 @@
+{% extends 'book/base.html' %}
+{% block content %}
+{% load static %}
+    <header class="masthead text-center d-flex">
+      <div class="container my-auto">
+        <div class="row">
+          <div class="col-lg-10 mx-auto">
+            <h1 class="text-uppercase">
+              <strong>당신의 인생책은?</strong>
+            </h1>
+          </div>
+          <!-- <div class="col-lg-8 mx-auto"> -->
+          <div class="fullscreen_search_cell">
+            <div class="fullscreen_search_inner">
+            <form role="search" action="/search" class="fullscreen_search_form" method="post">{% csrf_token %}
+              <div class="form_holder">
+                <!-- <span class="search_label">Search:</span> -->
+                <div class="field_holder">
+                  <input type="text" name="title" class="search_field" autocomplete="off">
+                  <div class="line" style="width: 0px;"></div>
+                </div>
+                  <a class="qode_search_submit search_submit" method="post" href="javascript:void(0)">
+                  <i class="qode_icon_font_awesome fa fa-search "></i>                                </a>
+              </div>
+            </form>
+          </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section class="p-0" id="portfolio">
+      <div class="container-fluid p-0">
+        <div class="row no-gutters popup-gallery">
+          {% for books in bookList %}
+          <div class="col-lg-3 col-sm-4 ">
+            <a class="portfolio-box">
+              <img class="img-fluid" src={{books.img_path}} style="top:0; left: 0; width: 100%; height:733px;">
+              <div class="portfolio-box-caption">
+                <div class="portfolio-box-caption-content">
+                  <div class="project-category text-faded">
+                   {{books.index }}
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>
+{% endblock %}
