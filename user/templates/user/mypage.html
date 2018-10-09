@@ -71,7 +71,7 @@
                         </figure>
                         <a href="/user/cancer/{{book.id}}">취소</a>
                       </div>
-                      
+
                       {% endfor %}
                     </div><!--row-->
 <!--
@@ -97,9 +97,9 @@
 
               <div style="margin-bottom:30px;margin-top:30px;padding-bottom:20px;">
                 <div style="margin-bottom:30px;margin-top:30px;padding-bottom:20px;">
-                  
+
                   <h2>{{user}}님의 책 취향</h2>
-                   <img src={{fname}} width="100%"/>
+                   <!-- <img src={{fname}} width="100%"/> -->
                 </div>
               </div>
             </div><!--div Profile End-->
@@ -146,7 +146,7 @@
             var lat = position.coords.latitude, // 위도
                 lon = position.coords.longitude; // 경도
 
-            locPosition = new daum.maps.LatLng(lat, lon); 
+            locPosition = new daum.maps.LatLng(lat, lon);
              map.setCenter(locPosition);
              // 현재 지도 표로 주소를 검색
              searchAddrFromCoords(locPosition, displayCenterInfo);

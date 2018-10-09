@@ -13,15 +13,6 @@ import html5lib
 from django.http import HttpResponse
 import urllib.parse
 
-####
-from wordcloud import WordCloud, STOPWORDS
-from konlpy.tag import Twitter; t = Twitter()
-import nltk
-import matplotlib.pyplot as plt
-import sys
-from PIL import Image
-import os
-####
 
 #Wordcloud용 크롤러
 def parseContentLike(url):
@@ -51,21 +42,11 @@ def parseContentLike(url):
                 break
     else :
         book_intro = " "
-    #if( b.find('a', attrs={'name' : 'contentsMakerReview'}) != None):
-    #    t_cnt = 0
-    #    for tag in b.find('a', attrs={'name' : 'contentsMakerReview'}).next_elements:
-    #        t_cnt+=1
-    #        if t_cnt == 2:
-    #            maker_review = tag.text
-    #            break
-    #    maker_review = re.sub(r'(\n|\s\s)','',maker_review.strip())
-    #else :
-    #    maker_review = " "
-
     bdata += " " + book_intro
-    #bdata += " " + maker_review
     return bdata
+
 #Wordcloud함수
+
 def Cloud(uid, fname):
     b_id = udao.selectBlike(uid)
     print("bid", b_id)
@@ -295,15 +276,15 @@ def mybook(request, num):
     if check == 0 :
         b = Blike(u = request.user, b_id = num)
         b.save()
-    l_id = dao.selectLikeId(num)
-    uid = request.user.id
-    name = str(l_id) + '_' + str(uid) + ".png"
-    if l_id > 0:
-        isFile = "book/static/img/" + str(l_id - 1) + '_' + str(uid) + ".png"
-        if os.path.isfile(isFile):
-            os.remove(isFile)
-    fname = "/static/img/" + name
-    Cloud(uid, fname)
+    # l_id = dao.selectLikeId(num)
+    # uid = request.user.id
+    # name = str(l_id) + '_' + str(uid) + ".png"
+    # if l_id > 0:
+    #     isFile = "book/static/img/" + str(l_id - 1) + '_' + str(uid) + ".png"
+    #     if os.path.isfile(isFile):
+    #         os.remove(isFile)
+    # fname = "/static/img/" + name
+    # Cloud(uid, fname)
     return redirect(b_search)
 
 def detail(request, title):
@@ -324,4 +305,3 @@ def bAjax(request):
         data = request.POST['title']
         return detail(request, data)
     return render(request, 'book/book_search.html', {'time':time})
-
