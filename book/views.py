@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from  . import dao
+from . import dao
 from book.models import *
 from django.conf import settings
 
@@ -12,7 +12,17 @@ import re
 import html5lib
 from django.http import HttpResponse
 import urllib.parse
+from user import dao as udao
 
+####
+from wordcloud import WordCloud, STOPWORDS
+from konlpy.tag import Twitter; t = Twitter()
+import nltk
+import matplotlib.pyplot as plt
+import sys
+from PIL import Image
+import os
+####
 
 #Wordcloud용 크롤러
 def parseContentLike(url):
@@ -212,7 +222,6 @@ def parseContent(url, title):
 
 
 def gangnam(title):
-
     url1 = "http://library.gangnam.go.kr/search/tot/result?q="
     url2 = urllib.parse.quote_plus(title)
     url3 = "&st=EXCT&si=TOTAL&oi=&os=&cpp=50"
@@ -276,15 +285,15 @@ def mybook(request, num):
     if check == 0 :
         b = Blike(u = request.user, b_id = num)
         b.save()
-    # l_id = dao.selectLikeId(num)
-    # uid = request.user.id
-    # name = str(l_id) + '_' + str(uid) + ".png"
-    # if l_id > 0:
-    #     isFile = "book/static/img/" + str(l_id - 1) + '_' + str(uid) + ".png"
-    #     if os.path.isfile(isFile):
-    #         os.remove(isFile)
-    # fname = "/static/img/" + name
-    # Cloud(uid, fname)
+    l_id = dao.selectLikeId(num)
+    uid = request.user.id
+    name = str(l_id) + '_' + str(uid) + ".png"
+    if l_id > 0:
+        isFile = "book/static/img/" + str(l_id - 1) + '_' + str(uid) + ".png"
+        if os.path.isfile(isFile):
+            os.remove(isFile)
+    fname = "/static/img/" + name
+    Cloud(uid, fname)
     return redirect(b_search)
 
 def detail(request, title):

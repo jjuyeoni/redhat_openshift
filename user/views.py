@@ -23,16 +23,17 @@ def mypage(request):
     bList=[]
     for i in b_id:
         bList.append(selectBookbyid(i))
-    # l_id = dao.selectAllBlike(request.user.id)
-    # print(l_id)
-    # fname = "book/static/img/" + str(l_id[len(l_id) - 1]) + "_" + str(request.user.id) + ".png"
-    # print("fname",fname)
-    # if os.path.isfile(fname):
-    #     g = "/static/img/" + str(l_id[len(l_id) - 1]) + "_" + str(request.user.id) + ".png"
-    # else :
-    #     g = "/static/img/book_bg.jpg"
+    l_id = dao.selectAllBlike(request.user.id)
+    if len(l_id) != 0 :
+        fname = "book/static/img/" + str(l_id[len(l_id) - 1]) + "_" + str(request.user.id) + ".png"
+        if os.path.isfile(fname) :
+            file_name = "/static/img/" + str(l_id[len(l_id) - 1]) + "_" + str(request.user.id) + ".png"
+        else :
+            file_name = "/static/img/book_bg.jpg"
+    else :
+        file_name = "/static/img/book_bg.jpg"
 
-    return render(request, 'user/mypage.html', {'bList':bList, 'cnt':cnt})
+    return render(request, 'user/mypage.html', {'bList':bList, 'cnt':cnt, 'fname':file_name})
 
 def cancer(request, num):
     dao.deletBlike(num, request.user.id)

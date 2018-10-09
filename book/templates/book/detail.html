@@ -16,12 +16,14 @@
 
     <section>
       <div class="container" style="width:60%; border: 1px solid rgba(0, 0, 0, 0.21); padding:40px">
-          {% if check == 0 %} 
-          <a href="/mybook/{{data.id}}"><i class="far fa-thumbs-up" style="font-size:50px;"></i></a> 
+        {% if user.is_active %}
+          {% if check == 0 %}
+          <a href="/mybook/{{data.id}}"><i class="far fa-thumbs-up" style="font-size:50px;"></i></a>
           {% endif %}
           {% if check == 1 %}
-          <a href="/user/cancer/{{data.id}}"><i class="fas fa-thumbs-up" style="font-size:50px;"></i></a> 
+          <a href="/user/cancer/{{data.id}}"><i class="fas fa-thumbs-up" style="font-size:50px;"></i></a>
           {% endif %}
+        {% endif %}
            <div class="row" style="margin:50px">
             <div class="col-lg-4">
               <img src={{data.image}} style='height: 100%; width: 100%; object-fit: contain'>
@@ -127,8 +129,8 @@
          // GeoLocation을 이용해서 접속 위치를 얻어옵니다
          navigator.geolocation.getCurrentPosition(function(position) {
 
-         var lat = position.coords.latitude, // 위도
-             lon = position.coords.longitude; // 경도
+           var lat = 37.495482, // 위도
+               lon = 127.03874100000007; // 경도
 
         locPosition = new daum.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
 
